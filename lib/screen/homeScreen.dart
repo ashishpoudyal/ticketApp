@@ -1,8 +1,10 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:ticketapp/model/allTicketModel.dart';
+import 'package:ticketapp/screen/chart.dart';
 
 import '../provider/provider.dart';
 
@@ -406,8 +408,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   );
                                 }),
                             GridView.builder(
-                                itemCount: _ticketViewModel
-                                    .ticketModelData.data.dist.week.length,
+                                itemCount: 1,
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                         childAspectRatio: 1.30,
@@ -415,20 +416,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemBuilder: (context, int index) {
                                   var item = _ticketViewModel
                                       .ticketModelData.data.dist.week;
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.grey)),
-                                      height: 20,
-                                      width: 50,
-                                      child: Column(
-                                        children: [
-                                          Text(item[index].label),
-                                          Text(item[index].value),
-                                          Icon(Icons.airplane_ticket),
-                                        ],
+                                  return Container(
+                                    child: AspectRatio(
+                                      aspectRatio: 2,
+                                      child: LineChart(
+                                        LineChartData(
+                                          lineBarsData: [
+                                            LineChartBarData(
+                                              spots: [1, 2, 3]
+                                                  .map((point) => FlSpot(1, 2))
+                                                  .toList(),
+
+                                              // spots: [1,2,3].map((point) => FlSpot(point.x, point.y)).toList(),
+                                              isCurved: false,
+                                              dotData: FlDotData(
+                                                show: false,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );

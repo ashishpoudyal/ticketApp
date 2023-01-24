@@ -1,55 +1,68 @@
+// import 'package:fl_chart/fl_chart.dart';
 // import 'package:flutter/material.dart';
-// import 'package:syncfusion_flutter_charts/charts.dart';
 
-// class ChartScreen extends StatefulWidget {
-//   // ignore: prefer_const_constructors_in_immutables
-//   ChartScreen({Key? key}) : super(key: key);
+// import 'package:flutter_chart_demo/data/price_point.dart';
 
-//   @override
-//   ChartScreenState createState() => ChartScreenState();
-// }
+// class LineChartWidget extends StatelessWidget {
+//   final List<PricePoint> points;
 
-// class ChartScreenState extends State<ChartScreen> {
-//   late List<_ChartData> data;
-//   late TooltipBehavior _tooltip;
-
-//   @override
-//   void initState() {
-//     data = [
-//       _ChartData('CHN', 12),
-//       _ChartData('GER', 15),
-//       _ChartData('RUS', 30),
-//       _ChartData('BRZ', 6.4),
-//       _ChartData('IND', 14)
-//     ];
-//     _tooltip = TooltipBehavior(enable: true);
-//     super.initState();
-//   }
+//   const LineChartWidget(this.points, {Key? key}) : super(key: key);
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           title: const Text('Syncfusion Flutter chart'),
+//     return AspectRatio(
+//       aspectRatio: 2,
+//       child: LineChart(
+//         LineChartData(
+//           lineBarsData: [
+//             LineChartBarData(
+//                 spots: points.map((point) => FlSpot(point.x, point.y)).toList(),
+//                 isCurved: false,
+//                 dotData: FlDotData(
+//                   show: false,
+//                 ),
+//                 color: Colors.red),
+//           ],
+//           borderData: FlBorderData(
+//               border: const Border(bottom: BorderSide(), left: BorderSide())),
+//           gridData: FlGridData(show: false),
+//           titlesData: FlTitlesData(
+//             bottomTitles: AxisTitles(sideTitles: _bottomTitles),
+//             leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+//             topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+//             rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+//           ),
 //         ),
-//         body: SfCartesianChart(
-//             primaryXAxis: CategoryAxis(),
-//             primaryYAxis: NumericAxis(minimum: 0, maximum: 40, interval: 10),
-//             tooltipBehavior: _tooltip,
-//             series: <ChartSeries<_ChartData, String>>[
-//               ColumnSeries<_ChartData, String>(
-//                   dataSource: data,
-//                   xValueMapper: (_ChartData data, _) => data.x,
-//                   yValueMapper: (_ChartData data, _) => data.y,
-//                   name: 'Gold',
-//                   color: Color.fromRGBO(8, 142, 255, 1))
-//             ]));
+//       ),
+//     );
 //   }
-// }
 
-// class _ChartData {
-//   _ChartData(this.x, this.y);
+//   SideTitles get _bottomTitles => SideTitles(
+//         showTitles: true,
+//         getTitlesWidget: (value, meta) {
+//           String text = '';
+//           switch (value.toInt()) {
+//             case 1:
+//               text = 'Jan';
+//               break;
+//             case 3:
+//               text = 'Mar';
+//               break;
+//             case 5:
+//               text = 'May';
+//               break;
+//             case 7:
+//               text = 'Jul';
+//               break;
+//             case 9:
+//               text = 'Sep';
+//               break;
+//             case 11:
+//               text = 'Nov';
+//               break;
+//           }
 
-//   final String x;
-//   final double y;
+//           return Text(text);
+//         },
+//       );
 // }
