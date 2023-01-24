@@ -21,11 +21,56 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  int _selectedIndex = 0;
+  static List<Widget> _widgetOptions = <Widget>[
+    HomeScreen(),
+
+    HomeScreen(),
+    HomeScreen(),
+
+    // HomeScreen(),
+  ];
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final _ticketViewModel = context.watch<TicketProvider>();
 
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.blue,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+              backgroundColor: Colors.white,
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.airplane_ticket),
+              label: 'Ticket',
+              backgroundColor: Colors.white,
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+                backgroundColor: Colors.white),
+          ],
+          // type: BottomNavigationBarType.shifting,
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.white,
+          showUnselectedLabels: true,
+          selectedLabelStyle:
+              TextStyle(color: Colors.white54, fontWeight: FontWeight.w700),
+          unselectedLabelStyle:
+              TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
+          unselectedItemColor: Colors.white,
+          iconSize: 40,
+          onTap: _onItemTapped,
+          elevation: 5),
       drawer: Drawer(),
       appBar: AppBar(
         elevation: 0,
